@@ -115,3 +115,17 @@ genrule {
         " --minApiLevel 30",
     out: ["com/android/os/corenetworking/captiveportallogin/CaptivePortalLoginStatsLog.java"],
 }
+
+aconfig_declarations {
+    name: "captiveportallogin.flags",
+    package: "com.android.captiveportallogin.flags",
+    container: "CaptivePortalLogin",
+    srcs: ["flags.aconfig"],
+}
+
+java_aconfig_library {
+    name: "com.android.captiveportallogin.flags.flags-aconfig-java",
+    aconfig_declarations: "captiveportallogin.flags",
+    defaults: ["framework-minus-apex-aconfig-java-defaults"],
+    min_sdk_version: "31",
+}
