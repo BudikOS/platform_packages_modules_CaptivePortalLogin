@@ -601,7 +601,7 @@ public class CaptivePortalLoginActivity extends Activity {
 
     @VisibleForTesting
     boolean isCustomTabsEnabledThroughMainlineFlag() {
-        return Flags.captivePortalCustomTabs();
+        return Flags.captivePortalCustomTabsPublic();
     }
 
     @VisibleForTesting
