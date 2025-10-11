@@ -166,7 +166,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
@@ -914,23 +913,16 @@ public class CaptivePortalLoginActivityTest {
         final UiDevice device = UiDevice.getInstance(getInstrumentation());
         device.findObject(By.clazz(WebView.class.getName())).click();
 
-        // Wait for the second page to load by waiting for the webview to be able to go back.
-        final AtomicReference<WebView> webViewRef = new AtomicReference<>();
-        mActivityScenario.onActivity(activity -> webViewRef.set(
-                activity.findViewById(R.id.webview)));
-        final AtomicBoolean canGoBack = new AtomicBoolean(false);
+        // Wait for the second page to load by checking for its content.
         assertTrue("Timeout waiting for second page to load", isEventually(() -> {
-            getInstrumentation().runOnMainSync(() -> {
-                if (webViewRef.get() != null) {
-                    canGoBack.set(webViewRef.get().canGoBack());
-                }
-            });
-            return canGoBack.get();
+            try {
+                onWebView().withElement(findElement(Locator.ID, page2ContentId))
+                        .check(webMatches(getText(), containsString(page2ContentText)));
+                return true;
+            } catch (Throwable t) {
+                return false;
+            }
         }, TEST_TIMEOUT_MS));
-
-        // Check the second page is loaded.
-        onWebView().withElement(findElement(Locator.ID, page2ContentId))
-                .check(webMatches(getText(), containsString(page2ContentText)));
 
         // Now that a history entry for page2 exists, pressing back should navigate back.
         pressBack();
