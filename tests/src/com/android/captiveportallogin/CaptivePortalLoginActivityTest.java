@@ -1451,8 +1451,6 @@ public class CaptivePortalLoginActivityTest {
     }
 
     @Test
-    // TODO: run on S+ once latest Chrome versions can be installed before test run.
-    @IgnoreUpTo(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     @FeatureFlag(name = CAPTIVE_PORTAL_CUSTOM_TABS, enabled = true)
     public void testCaptivePortalUsingCustomTabs_closeAppWhenTabHiddenButParentStillResumed()
             throws Exception {
