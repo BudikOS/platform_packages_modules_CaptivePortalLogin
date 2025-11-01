@@ -853,8 +853,7 @@ public class CaptivePortalLoginActivity extends Activity {
         if (null == defaultPackage) {
             mCaptivePortalLoginMetrics.setReason(
                     CAPTIVE_PORTAL_LOGIN_REPORTED__REASON__REASON_NOT_SUPPORT_CCT);
-        }
-        if (!isMultiNetworkingSupportedByProvider(defaultPackage)) {
+        } else if (!isMultiNetworkingSupportedByProvider(defaultPackage)) {
             mCaptivePortalLoginMetrics.setReason(
                     CAPTIVE_PORTAL_LOGIN_REPORTED__REASON__REASON_NOT_SUPPORT_MULTI_NETWORK);
         }
