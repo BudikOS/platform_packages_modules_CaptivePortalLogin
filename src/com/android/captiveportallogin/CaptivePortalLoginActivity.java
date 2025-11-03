@@ -713,7 +713,10 @@ public class CaptivePortalLoginActivity extends Activity {
     }
 
     @VisibleForTesting
-    boolean isMultiNetworkingSupportedByProvider(@NonNull final String defaultPackageName) {
+    boolean isMultiNetworkingSupportedByProvider(final String defaultPackageName) {
+        if (defaultPackageName == null) {
+            return false;
+        }
         return CustomTabsClient.isSetNetworkSupported(getApplicationContext(), defaultPackageName);
     }
 
