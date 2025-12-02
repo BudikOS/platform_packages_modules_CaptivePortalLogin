@@ -478,6 +478,9 @@ public class CaptivePortalLoginActivity extends Activity {
             // same experience as the custom tabs browser.
             final String emptyReferrer = "";
             customTabsIntent.intent.putExtra(Intent.EXTRA_REFERRER, Uri.parse(emptyReferrer));
+            // Disable "Open in Browser" option in the toolbar menu.
+            customTabsIntent.intent.putExtra(CustomTabsIntent.EXTRA_OPEN_IN_BROWSER_STATE,
+                    CustomTabsIntent.OPEN_IN_BROWSER_STATE_OFF);
             // Replicate customTabsIntent.launchUrl, which calls intent.setData(url) and
             // ContextCompat.startActivity(context, intent, startAnimationBundle), but using
             // startActivityForResult to get notified when the activity is closed.
